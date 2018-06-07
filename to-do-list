@@ -1,0 +1,48 @@
+CLI 
+
+"Welcome to the book library of best selling romance author, Sylvia Day."
+
+"Would you like to see a list of the books she has written? Please type 'yes' or 'no'." (account for YES yes Yes Y y NO no No N n and invalid input)
+
+if y puts list of book titles, if n -> exit
+
+"Please type the title of the book you'd like to learn more about!"
+
+input = book title (account for invalid input and possiblity of not including series names)
+
+returns book description
+
+"Would you like to see the list of books again? Please type 'yes' or 'no'."
+(account for YES yes Yes Y y NO no No N n and invalid input)
+
+if y start over, if n -> exit 
+
+
+
+
+Books Class
+
+needs to create the list of books - - Scraper.books_array
+returns list
+input = gets.chomp
+
+
+
+Description Class 
+
+takes input to retrieve description 
+needs to return description - - Scraper.get_description(title)
+
+
+
+
+MAYBE DO THIS:
+
+eliminate books with multiple authors OR list other authors 
+    create author scrape 
+    say if authors > 1 list author names - - in an author class
+
+eliminate books in languages other than english
+    done within scrape 
+
+
