@@ -1,8 +1,11 @@
-class Book
-  attr_accessor :title
-  @@all = []
+require_relative '../lib/scraper.rb'
 
-  def initialize(title)
+class Book
+  attr_accessor :title, :all_titles
+  @@all = []
+  @@all_titles = []
+
+  def initialize(title = nil)
     @title = title
   end
 
@@ -10,22 +13,26 @@ class Book
     @@all
   end
 
+  def self.all_titles
+    @@all_titles
+  end
+
   def save
     @@all << self
+    @@all_titles << @title
   end
 
   def self.empty_all
     @@all.clear
+    @@all_titles.clear
   end
 
-  def self.create
-    books = Scraper.books_array
-    books.each do |book|
-      book_title = book[:title]
-    end
-    new_book = self.new(book_title)
+  def self.create(title)
+    new_book = self.new(title)
     new_book.save
     new_book
-    binding.pry
   end
 end
+
+
+# a = Book.new('Entwined with You (Crossfire, #3)')

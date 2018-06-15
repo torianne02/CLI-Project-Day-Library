@@ -1,4 +1,6 @@
 require_relative '../config/environment.rb'
+require_relative '../lib/scraper.rb'
+require_relative '../lib/books.rb'
 
 class DayLibrary
   attr_accessor :chosen_book
@@ -8,6 +10,7 @@ class DayLibrary
     puts "Would you like to see a list of the books she has written? Please type 'yes' or 'no'."
 
     input = gets.chomp
+    # input = 'yes'
     if input.downcase == "yes" || input.downcase == "y"
       choose_book
     elsif input.downcase == "no" || input.downcase == "n"
@@ -18,13 +21,24 @@ class DayLibrary
   end
 
   def choose_book
-    books = Book.all.sort_by! {|book| book.title}
-    puts "#{books}"
-    books.each {|book| puts "#{book.title}"}
+    # books = Book.create
+    # books.create ## shouldn't this be completed at creation of new class instance since it is a class method using 'self'?
+    # books = Book.all.sort_by! {|book| book.title}
+    # puts "#{Book.all}"
+    # books.each {|book| puts "#{book.title}"}
+
+    scraped_books = Scraper.new
+    scraped_books.get_book_info
+    books = scraped_books.books_array
+    books.each {|book| Book.create(book[:title])}
+    Book.all.sort_by! {|book| book.title}
+    Book.all.each {|book| puts "#{book.title}"}
 
     puts "Please type the title of the book you'd like to learn more about!"
     input = gets.chomp
-    if Book.all.include?(input)
+
+    # Book.new -->
+    if Book.all_titles.include?(input)
       chosen_book = input
       return_description(chosen_book)
       start_over?
@@ -33,8 +47,10 @@ class DayLibrary
     end
   end
 
-  def return_description(book_title)
-    Scraper.get_description(book_title)
+  def return_description(chosen_book)
+    grab_description = Scraper.new
+    description = grab_description.get_description(chosen_book)
+    puts description
   end
 
   def start_over?
@@ -49,6 +65,3 @@ class DayLibrary
     end
   end
 end
-
-a = DayLibrary.new
-a.calls_library
