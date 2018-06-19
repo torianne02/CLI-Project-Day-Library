@@ -1,12 +1,13 @@
 require_relative '../lib/scraper.rb'
 
 class Book
-  attr_accessor :title, :all_titles
+  attr_accessor :title, :all_titles, :book_url
   @@all = []
   @@all_titles = []
 
-  def initialize(title = nil)
+  def initialize(title = nil, book_url = nil)
     @title = title
+    @book_url = book_url
   end
 
   def self.all
@@ -27,8 +28,8 @@ class Book
     @@all_titles.clear
   end
 
-  def self.create(title)
-    new_book = self.new(title)
+  def self.create(title, book_url)
+    new_book = self.new(title, book_url)
     new_book.save
     new_book
   end

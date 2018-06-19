@@ -21,23 +21,16 @@ class DayLibrary
   end
 
   def choose_book
-    # books = Book.create
-    # books.create ## shouldn't this be completed at creation of new class instance since it is a class method using 'self'?
-    # books = Book.all.sort_by! {|book| book.title}
-    # puts "#{Book.all}"
-    # books.each {|book| puts "#{book.title}"}
-
     scraped_books = Scraper.new
     scraped_books.get_book_info
     books = scraped_books.books_array
-    books.each {|book| Book.create(book[:title])}
+    books.each {|book| Book.create(book[:title], book[:book_url])}
     Book.all.sort_by! {|book| book.title}
     Book.all.each {|book| puts "#{book.title}"}
 
     puts "Please type the title of the book you'd like to learn more about!"
     input = gets.chomp
 
-    # Book.new -->
     if Book.all_titles.include?(input)
       chosen_book = input
       return_description(chosen_book)
@@ -50,7 +43,7 @@ class DayLibrary
   def return_description(chosen_book)
     grab_description = Scraper.new
     description = grab_description.get_description(chosen_book)
-    puts description
+    return description
   end
 
   def start_over?
