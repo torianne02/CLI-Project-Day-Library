@@ -29,10 +29,9 @@ class DayLibrary
     Book.all.each {|book| puts "#{book.title}"}
 
     puts "Please type the title of the book you'd like to learn more about!"
-    input = gets.chomp
+    chosen_book = gets.chomp
 
-    if Book.all_titles.include?(input)
-      chosen_book = input
+    if Book.all_titles.include?(chosen_book)
       return_description(chosen_book)
       start_over?
     else
@@ -41,15 +40,21 @@ class DayLibrary
   end
 
   def return_description(chosen_book)
-    grab_description = Scraper.new
-    description = grab_description.get_description(chosen_book)
-    return description
+    book_url = ""
+    Book.all.each do |book|
+      if book.title == chosen_book
+        book_url = book.book_url
+      end
+    end
+    description = Scraper.get_description(book_url)
+    puts description
   end
 
   def start_over?
     puts "Would you like to see the list of books again? Please type 'yes' or 'no'."
     input = gets.chomp
     if input.downcase == "yes" || input.downcase == "y"
+      Book.empty_all
       choose_book
     elsif input.downcase == "no" || input.downcase == "n"
       puts "Thank you for using Sylvia Day's library. Goodbye."
