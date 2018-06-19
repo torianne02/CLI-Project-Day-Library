@@ -9,57 +9,70 @@ class DayLibrary
     puts "Welcome to the book library of best selling romance author, Sylvia Day."
     puts "Would you like to see a list of the books she has written? Please type 'yes' or 'no'."
 
-    input = gets.chomp
-    # input = 'yes'
-    if input.downcase == "yes" || input.downcase == "y"
-      choose_book
-    elsif input.downcase == "no" || input.downcase == "n"
-      puts "Thank you for using Sylvia Day's library. Goodbye."
-    else
-      puts "Invalid input. Please try again."
+    while true
+      input = gets.chomp.downcase
+      if input == "yes" || input == "y"
+        choose_book
+        break
+      elsif input == "no" || input == "n"
+        puts "Thank you for using Sylvia Day's library. Goodbye."
+        break
+      else
+        puts "Invalid input. Please try again."
+      end
     end
   end
 
   def choose_book
-    scraped_books = Scraper.new
-    scraped_books.get_book_info
-    books = scraped_books.books_array
+    Scraper.get_book_info
+    books = Scraper.books_array
     books.each {|book| Book.create(book[:title], book[:book_url])}
     Book.all.sort_by! {|book| book.title}
     Book.all.each {|book| puts "#{book.title}"}
 
     puts "Please type the title of the book you'd like to learn more about!"
-    chosen_book = gets.chomp
-
-    if Book.all_titles.include?(chosen_book)
-      return_description(chosen_book)
-      start_over?
-    else
-      puts "Invalid input. Please try again."
+    while true
+      chosen_book = gets.chomp.downcase
+      if Book.downcase_all_titles.include?(chosen_book)
+        return_description(chosen_book)
+        start_over?
+        break
+      else
+        puts "Invalid input. Please try again."
+      end
     end
   end
 
   def return_description(chosen_book)
     book_url = ""
     Book.all.each do |book|
-      if book.title == chosen_book
+      if book.title.downcase == chosen_book
         book_url = book.book_url
       end
     end
     description = Scraper.get_description(book_url)
-    puts description
+    if description == ""
+      puts "Sorry this book has no description."
+    else
+      puts description
+    end
   end
 
   def start_over?
     puts "Would you like to see the list of books again? Please type 'yes' or 'no'."
-    input = gets.chomp
-    if input.downcase == "yes" || input.downcase == "y"
-      Book.empty_all
-      choose_book
-    elsif input.downcase == "no" || input.downcase == "n"
-      puts "Thank you for using Sylvia Day's library. Goodbye."
-    else
-      puts "Invalid input. Please try again."
+    while true
+      input = gets.chomp.downcase
+      if input == "yes" || input == "y"
+        Scraper.empty_books_array
+        Book.empty_all
+        choose_book
+        break
+      elsif input == "no" || input == "n"
+        puts "Thank you for using Sylvia Day's library. Goodbye."
+        break
+      else
+        puts "Invalid input. Please try again."
+      end
     end
   end
 end

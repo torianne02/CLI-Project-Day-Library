@@ -28,12 +28,13 @@ class Book
     @@all_titles.clear
   end
 
+  def self.downcase_all_titles
+    @@all_titles.map {|title| title.downcase}
+  end
+
   def self.create(title, book_url)
     new_book = self.new(title, book_url)
     new_book.save
     new_book
   end
 end
-
-
-# a = Book.new('Entwined with You (Crossfire, #3)')
