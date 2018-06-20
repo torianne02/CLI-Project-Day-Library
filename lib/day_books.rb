@@ -1,6 +1,4 @@
 require_relative '../config/environment.rb'
-require_relative '../lib/scraper.rb'
-require_relative '../lib/books.rb'
 
 class DayLibrary
   attr_accessor :chosen_book
