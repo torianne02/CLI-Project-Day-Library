@@ -1,9 +1,9 @@
 require_relative '../config/environment.rb'
 
-class DayLibrary
+class CLI
   attr_accessor :chosen_book
 
-  def calls_library
+  def call
     puts "Welcome to the book library of best selling romance author, Sylvia Day."
     puts "Would you like to see a list of the books she has written? Please type 'yes' or 'no'."
 

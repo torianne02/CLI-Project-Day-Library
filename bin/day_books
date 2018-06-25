@@ -2,5 +2,4 @@
 
 require_relative '../config/environment.rb'
 
-a = DayLibrary.new
-a.calls_library
+CLI.new.call
