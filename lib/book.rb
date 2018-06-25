@@ -1,6 +1,6 @@
 require_relative '../lib/scraper.rb'
 
-class Book
+class DayBooks::Book
   attr_accessor :title, :all_titles, :book_url
   @@all = []
   @@all_titles = []

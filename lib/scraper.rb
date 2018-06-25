@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-class Scraper
+class DayBooks::Scraper
   attr_accessor :books_array
   @@books_array = []
 

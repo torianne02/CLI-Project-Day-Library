@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
 require_relative '../config/environment.rb'
+require "bundler/setup"
 
-CLI.new.call
+
+DayBooks::CLI.new.call
