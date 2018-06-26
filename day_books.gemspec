@@ -1,16 +1,16 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "day_books/version"
+require_relative "day_books/version"
 
-Gem::Specification.new do |spec|
+Gem::Specification.new 'day_books', '0.1.0' do |spec|
   spec.name          = "day_books"
   spec.version       = DayBooks::VERSION
   spec.authors       = ["Victoria Fluharty"]
   spec.email         = ["victoria.fluharty@gmail.com"]
 
   spec.summary       = %q{Interactive library for famous author, Sylvia Day's books.}
-  spec.description   = %q{Library that lists all of the books written by Sylvia Day using Goodreads website. Allows user to see a list of her books and pick a book to see the description.}
+  spec.description   = %q{Library that lists all of the books written by Sylvia Day using goodreads website. Allows user to see a list of her books and pick a book to see the description.}
   spec.homepage      = "https://github.com/torianne02/CLI-Project-Day-Library"
   spec.license       = "MIT"
 
