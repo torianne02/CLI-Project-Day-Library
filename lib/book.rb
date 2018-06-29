@@ -14,10 +14,6 @@ class DayBooks::Book
     @@all
   end
 
-  def self.downcase_all_titles
-    @@all.map {|book| book.title.downcase}
-  end
-
   def self.create(title, book_url)
     new_book = self.new(title, book_url)
     new_book
