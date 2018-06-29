@@ -25,12 +25,13 @@ class DayBooks::CLI
 
   def choose_book
     DayBooks::Book.all.sort_by! {|book| book.title}
-    DayBooks::Book.all.each {|book| puts "#{book.title}"}
+    DayBooks::Book.all.each_with_index {|book, index| puts "#{index + 1}. #{book.title}"}
 
-    puts "Please type the title of the book you'd like to learn more about!"
+    puts "Please type the number of the book you'd like to learn more about!"
     while true
-      chosen_book = gets.chomp.downcase
-      if DayBooks::Book.downcase_all_titles.include?(chosen_book)
+      input = gets.chomp.to_i - 1
+      if input < DayBooks::Book.all.count
+        chosen_book = DayBooks::Book.all.fetch(input).title
         return_description(chosen_book)
         start_over?
         break
@@ -43,7 +44,7 @@ class DayBooks::CLI
   def return_description(chosen_book)
     book_url = ""
     DayBooks::Book.all.each do |book|
-      if book.title.downcase == chosen_book
+      if book.title == chosen_book
         book_url = book.book_url
       end
     end
