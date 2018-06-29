@@ -2,7 +2,6 @@ require 'nokogiri'
 require 'open-uri'
 
 class DayBooks::Scraper
-  attr_accessor :books_array
   @@books_array = []
 
   def self.books_array
