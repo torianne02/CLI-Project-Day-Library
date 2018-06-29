@@ -1,10 +1,13 @@
-require_relative '../config/environment.rb'
 require_relative '../lib/day_books/version.rb'
 
 class DayBooks::CLI
   def call
     puts "Welcome to the book library of best selling romance author, Sylvia Day."
     puts "Would you like to see a list of the books she has written? Please type 'yes' or 'no'."
+
+    DayBooks::Scraper.get_book_info
+    books = DayBooks::Scraper.books_array
+    books.each {|book| DayBooks::Book.create(book[:title], book[:book_url])}
 
     while true
       input = gets.chomp.downcase
@@ -21,9 +24,6 @@ class DayBooks::CLI
   end
 
   def choose_book
-    DayBooks::Scraper.get_book_info
-    books = DayBooks::Scraper.books_array
-    books.each {|book| DayBooks::Book.create(book[:title], book[:book_url])}
     DayBooks::Book.all.sort_by! {|book| book.title}
     DayBooks::Book.all.each {|book| puts "#{book.title}"}
 
@@ -60,8 +60,6 @@ class DayBooks::CLI
     while true
       input = gets.chomp.downcase
       if input == "yes" || input == "y"
-        DayBooks::Scraper.empty_books_array
-        DayBooks::Book.empty_all
         choose_book
         break
       elsif input == "no" || input == "n"
