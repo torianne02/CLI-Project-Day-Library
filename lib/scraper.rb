@@ -8,10 +8,6 @@ class DayBooks::Scraper
     @@books_array
   end
 
-  def self.empty_books_array
-    @@books_array.clear
-  end
-
   def self.get_page(page_url)
     Nokogiri::HTML(open(page_url))
   end
