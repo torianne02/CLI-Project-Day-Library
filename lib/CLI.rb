@@ -6,20 +6,16 @@ class DayBooks::CLI
     puts "Would you like to see a list of the books she has written? Please type 'yes' or 'no'."
 
     DayBooks::Scraper.get_book_info
-    books = DayBooks::Scraper.books_array
-    books.each {|book| DayBooks::Book.create(book[:title], book[:book_url])}
+    DayBooks::Scraper.books_array.each {|book| DayBooks::Book.create(book[:title], book[:book_url])}
 
-    while true
-      input = gets.chomp.downcase
-      if input == "yes" || input == "y"
-        choose_book
-        break
-      elsif input == "no" || input == "n"
-        puts "Thank you for using Sylvia Day's library. Goodbye."
-        break
-      else
-        puts "Invalid input. Please try again."
-      end
+    input = gets.chomp.downcase
+
+    if input == "yes" || input == "y"
+      choose_book
+    elsif input == "no" || input == "n"
+      puts "Thank you for using Sylvia Day's library. Goodbye."
+    else
+      puts "Invalid input. Please try again."
     end
   end
 
