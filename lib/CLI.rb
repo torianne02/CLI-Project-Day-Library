@@ -24,17 +24,9 @@ class DayBooks::CLI
     DayBooks::Book.all.each_with_index {|book, index| puts "#{index + 1}. #{book.title}"}
 
     puts "Please type the number of the book you'd like to learn more about!"
-    while true
-      input = gets.chomp.to_i - 1
-      if input < DayBooks::Book.all.count
-        chosen_book = DayBooks::Book.all.fetch(input).title
-        return_description(chosen_book)
-        start_over?
-        break
-      else
-        puts "Invalid input. Please try again."
-      end
-    end
+
+    input = gets.chomp.to_i - 1
+    input < DayBooks::Book.all.count ? return_description(DayBooks::Book.all.fetch(input).title) : "Invalid input. Please try again."
   end
 
   def return_description(chosen_book)
@@ -50,6 +42,7 @@ class DayBooks::CLI
     else
       puts description
     end
+    start_over?
   end
 
   def start_over?
