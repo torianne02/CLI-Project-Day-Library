@@ -8,14 +8,17 @@ class DayBooks::CLI
     DayBooks::Scraper.get_book_info
     DayBooks::Scraper.books_array.each {|book| DayBooks::Book.create(book[:title], book[:book_url])}
 
-    input = gets.chomp.downcase
-
-    if input == "yes" || input == "y"
-      choose_book
-    elsif input == "no" || input == "n"
-      puts "Thank you for using Sylvia Day's library. Goodbye."
-    else
-      puts "Invalid input. Please try again."
+    while true
+      input = gets.chomp.downcase
+      if input == "yes" || input == "y"
+        choose_book
+        break;
+      elsif input == "no" || input == "n"
+        puts "Thank you for using Sylvia Day's library. Goodbye."
+        break;
+      else
+        puts "Invalid input. Please try again."
+      end
     end
   end
 
@@ -25,23 +28,23 @@ class DayBooks::CLI
 
     puts "Please type the number of the book you'd like to learn more about!"
 
-    input = gets.chomp.to_i - 1
-    input < DayBooks::Book.all.count ? return_description(DayBooks::Book.all.fetch(input).title) : "Invalid input. Please try again."
+    while true
+      input = gets.chomp.to_i - 1
+      if input < DayBooks::Book.all.count
+        return_description(DayBooks::Book.all.fetch(input).title)
+        break;
+      else
+        puts "Invalid input. Please try again."
+      end
+    end
   end
 
   def return_description(chosen_book)
-    book_url = ""
-    DayBooks::Book.all.each do |book|
-      if book.title == chosen_book
-        book_url = book.book_url
-      end
-    end
+    book_url = DayBooks::Book.all.select {|book| book.title == chosen_book}.first.book_url
+
     description = DayBooks::Scraper.get_description(book_url)
-    if description == ""
-      puts "Sorry this book has no description."
-    else
-      puts description
-    end
+    puts description.empty? ? "Sorry this book has no description" : description
+    
     start_over?
   end
 
