@@ -15,7 +15,6 @@ class DayBooks::Book
   end
 
   def self.create(title, book_url)
-    new_book = self.new(title, book_url)
-    new_book
+    self.new(title, book_url)
   end
 end
