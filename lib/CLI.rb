@@ -2,16 +2,17 @@ require_relative '../lib/day_books/version.rb'
 
 class DayBooks::CLI
   def call
-  puts "       .--.            .---.
-   .---|__|    .-.     |~~~|
-.--| S |--|_   |_|     |~~~|--.
-|  | Y |  |.---!~|  .--| B |--|
-|  | L |  ||===| |--|  | O |  |
-|  | V |  || D | |__|  | O |  |
-|  | I |  || A | |==|  | K |  |
-|  | A |__|| Y |_|__|  | S |__|
-|  |===|--||===|~|--|  |~~~|--|
-'--'---'--''---'-'--'--'---'--' "
+    puts "
+           .--.            .---.
+       .---|__|    .-.     |~~~|
+    .--| S |--|    |_|     |~~~|--.
+    |  | Y |  |.---!~|  .--| B |--|
+    |  | L |  ||===| |--|  | O |  |
+    |  | V |  || D | |__|  | O |  |
+    |  | I |  || A | |==|  | K |  |
+    |  | A |__|| Y |_|__|  | S |__|
+    |  |===|--||===|~|--|  |~~~|--|
+    '--'---'--''---'-'--'--'---'--' "
     puts "Welcome to the book library of best selling romance author, Sylvia Day."
     puts "Would you like to see a list of the books she has written? Please type 'yes' or 'no'."
 
