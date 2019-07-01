@@ -22,6 +22,7 @@ class DayBooks::CLI
     while true
       input = gets.chomp.downcase
       if input == "yes" || input == "y"
+        puts "-------------------------------------------------------------------------"
         choose_book
         break;
       elsif input == "no" || input == "n"
@@ -37,12 +38,15 @@ class DayBooks::CLI
     DayBooks::Book.all.sort_by! {|book| book.title}
     DayBooks::Book.all.each_with_index {|book, index| puts "#{index + 1}. #{book.title}"}
 
+    puts "-------------------------------------------------------------------------"
     puts "Please type the number of the book you'd like to learn more about!"
 
     while true
       input = gets.chomp.to_i - 1
       if input < DayBooks::Book.all.count
+        puts "-------------------------------------------------------------------------"
         return_description(DayBooks::Book.all.fetch(input).title)
+        puts "-------------------------------------------------------------------------"
         break;
       else
         puts "Invalid input. Please try again."
@@ -60,6 +64,7 @@ class DayBooks::CLI
   end
 
   def start_over?
+    puts "-------------------------------------------------------------------------"
     puts "Would you like to see the list of books again? Please type 'yes' or 'no'."
     while true
       input = gets.chomp.downcase
